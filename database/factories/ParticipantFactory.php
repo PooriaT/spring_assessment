@@ -19,8 +19,22 @@ class ParticipantFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'age' => $this->faker->numberBetween(18, 60),
-            'points' => $this->faker->numberBetween(0, 100),
+            'points' => 0,
             'address' => $this->faker->address(),
         ];
     }
 }
+
+
+// // database/factories/ParticipantFactory.php
+
+// use Faker\Generator as Faker;
+
+// $factory->define(App\Models\Participant::class, function (Faker $faker) {
+//     return [
+//         'name' => $faker->name,
+//         'age' => $faker->numberBetween(18, 60),
+//         'points' => 0,
+//         'address' => $faker->address,
+//     ];
+// });
