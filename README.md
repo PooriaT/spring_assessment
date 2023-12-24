@@ -9,7 +9,7 @@ Creating and API for Leaderboard application.
 ----
 #### Requirements:
 
-Write an API that would power the leaderboard Screen above (REST/GraphQL or)
+- Write an API that would power the leaderboard Screen above (REST/GraphQL or)
 - All users start with 0 points.
 - As you click +/-, the leaderboard updates and users are re-ordered based on score.
 - You are able to add users (+) and delete users (x)
@@ -32,7 +32,7 @@ average age of the users in json format.
         “names”: [’Noah’],
         “average_age”: 17
     },
-    …
+    ...
 }
 ```
 
@@ -59,9 +59,11 @@ no record should be created in the winners table.
 
 ### Prerequisite
 
-- PHP 8.1.2-1
-- php-curl
-- php-xml
+- PHP 8.1.2-1 (and its requirements)
+
+`sudo apt install php php-curl php-mbstring php-xml php-bcmath php-mysql php-zip`
+
+- composer 2.6.6
 - Laravel 10
 
 ### Installation
@@ -94,7 +96,7 @@ The application wil be accessible at `http://localhost:8000`.
 
 #### Implementing Front End
 
-All HTML, CSS, and JavaScript files for the view located in `public` directory. 
+All HTML, CSS, and JavaScript files for the view located in `resources` directory. 
 
 #### Docker
 
