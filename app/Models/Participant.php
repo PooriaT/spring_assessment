@@ -9,7 +9,7 @@ class Participant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'age', 'points', 'address'];
+    protected $fillable = ['name', 'age', 'points', 'address', 'qr_code_filename'];
     protected $casts = [
         'points' => 'integer',
         'age' => 'integer',

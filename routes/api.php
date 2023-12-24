@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaderboardController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,3 +26,6 @@ Route::put('/leaderboard/participants/point/add/{identifier}', [LeaderboardContr
 Route::put('/leaderboard/participants/point/sub/{identifier}', [LeaderboardController::class, 'subtractPoints']);
 Route::post('/leaderboard/addparticipant', [LeaderboardController::class, 'addParticipant']);
 Route::delete('/leaderboard/deleteparticipant/{identifier}', [LeaderboardController::class, 'deleteParticipant']);
+
+// Route::get('/leaderboard/qr-code/{filename}', [LeaderboardController::class, 'showQrCode'])->name('qr-code.show');
+

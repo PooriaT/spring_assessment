@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Jobs\GenerateQrCode;
+use App\Models\Participant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,25 +17,28 @@ class ParticipantFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->name;
+
         return [
-            'name' => $this->faker->name(),
+            'name' => $name,
             'age' => $this->faker->numberBetween(18, 60),
             'points' => 0,
             'address' => $this->faker->address(),
+            'qr_code_filename' => "{$name}_qr.png",
         ];
     }
+
+     /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Participant $participant) {
+            // Generate a QR code and store the filename
+            $qrCodeJob = new GenerateQrCode($participant);
+            $qrCodeJob->handle();
+        });
+    }
 }
-
-
-// // database/factories/ParticipantFactory.php
-
-// use Faker\Generator as Faker;
-
-// $factory->define(App\Models\Participant::class, function (Faker $faker) {
-//     return [
-//         'name' => $faker->name,
-//         'age' => $faker->numberBetween(18, 60),
-//         'points' => 0,
-//         'address' => $faker->address,
-//     ];
-// });

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaderboardController;
+use Illuminate\Support\Facades\Storage;
 
 
 /*
@@ -20,10 +21,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Route::get('/leaderboard', [LeaderboardController::class, 'index']);
-// Route::get('/leaderboard/participants', [LeaderboardController::class, 'getParticipants']);
-// Route::get('/leaderboard/participants/{identifier}', [LeaderboardController::class, 'getParticipant']);
-// Route::get('/leaderboard/groupbyscore/{score?}', [LeaderboardController::class, 'getGroupedByScore']);
-// Route::put('/leaderboard/participants/point/add/{identifier}', [LeaderboardController::class, 'addPoints']);
-// Route::put('/leaderboard/participants/point/sub/{identifier}', [LeaderboardController::class, 'subtractPoints']);
-// Route::post('/leaderboard/addparticipant', [LeaderboardController::class, 'addParticipant']);
-// Route::delete('/leaderboard/deleteparticipant/{identifier}', [LeaderboardController::class, 'deleteParticipant']);
+// Route::get('/leaderboard/qr-code/{filename}', [LeaderboardController::class, 'showQrCode'])->name('qr-code.show');
+
+// Route::get('/leaderboard/qr-code', function () {
+//     $filePath = "public/qrImage/nathaniel-dubuque_qr.png";
+//     // Check if the file exists
+//     if (Storage::exists($filePath)) {
+//         // Specify the content type as an image
+//         $headers = ['Content-Type' => 'image/png'];
+
+//         // Return the file response
+//         return file(storage_path("app/{$filePath}"), $headers);
+//     }
+
+//     abort(404);
+// });
