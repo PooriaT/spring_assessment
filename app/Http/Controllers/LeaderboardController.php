@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GenerateQrCode;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -121,6 +122,7 @@ class LeaderboardController extends Controller
         }
 
         $participant = Participant::create($request->all());
+        GenerateQrCode::dispatch($participant)->onQueue('default');
         return response()->json($participant, 201);
     }
 

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaderboardController;
+use Illuminate\Support\Facades\Storage;
 
 
 /*
@@ -19,6 +20,17 @@ use App\Http\Controllers\LeaderboardController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/leaderboard/qr-code/{filename}', function ($filename) {
+    $filePath = "public/qrImage/{$filename}";
+
+    // Check if the file exists
+    if (Storage::exists($filePath)) {
+        return response()->file(storage_path("app/{$filePath}"));
+    }
+
+    abort(404);
+})->name('qr-code');
 // Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 // Route::get('/leaderboard/participants', [LeaderboardController::class, 'getParticipants']);
 // Route::get('/leaderboard/participants/{identifier}', [LeaderboardController::class, 'getParticipant']);
