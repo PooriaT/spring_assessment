@@ -64,7 +64,7 @@ class LeaderboardController extends Controller
             $query->where('points', $score);
         }
 
-        $groupedParticipants = $query->get()->keyBy('points');
+        $groupedParticipants = $query->orderByDesc('points')->get()->keyBy('points');
         return response()->json($groupedParticipants);
     }
 
@@ -76,7 +76,9 @@ class LeaderboardController extends Controller
      */
     public function addPoints($identifier)
     {
-        $participant = $this->findParticipant($identifier);
+        // $participant = $this->find($identifier);
+        $participant = Participant::where('name', $identifier)
+            ->orWhere('id', $identifier);
 
         $participant->increment('points');
         return response()->json($participant);
@@ -90,7 +92,9 @@ class LeaderboardController extends Controller
      */
     public function subtractPoints($identifier)
     {
-        $participant = $this->findParticipant($identifier);
+        // $participant = $this->find($identifier);
+        $participant = Participant::where('name', $identifier)
+            ->orWhere('id', $identifier);
 
         $participant->decrement('points');
         return response()->json($participant);
@@ -105,7 +109,7 @@ class LeaderboardController extends Controller
     public function addParticipant(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:participants',
             'age' => 'required|integer|min:18',
             'address' => 'string|max:255',
         ]);
@@ -126,10 +130,15 @@ class LeaderboardController extends Controller
      */
     public function deleteParticipant($identifier)
     {
-        $participant = $this->findParticipant($identifier);
-
-        $participant->delete();
-        return response()->json(['message' => 'Participant deleted']);
+        // $participant = $this->find($identifier);
+        $participant = Participant::where('name', $identifier)
+            ->orWhere('id', $identifier)
+            ->first();
+        if($participant) {
+            $participant->delete();
+            return response()->json(['message' => 'Participant deleted']);
+        } else {
+            return response()->json(['error' => 'Participant not found'], 404);
+        }
     }
-
 }
