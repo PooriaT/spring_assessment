@@ -24,7 +24,8 @@ class GenerateQRCode implements ShouldQueue
 
     public function handle(): void
     {
-        $qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.google.com/maps/place/{$this->participant->address}";
+        // $qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.google.com/maps/place/{$this->participant->address}";
+        $qrCodeUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={$this->participant->address}";
         $qrCodeImage = file_get_contents($qrCodeUrl);
 
         $directory = 'public/qrImages/';

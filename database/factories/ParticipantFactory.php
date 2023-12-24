@@ -19,9 +19,6 @@ class ParticipantFactory extends Factory
     {
         $name = $this->faker->name;
 
-        // Generate a QR code and store the filename
-        $qrCodeJob = new GenerateQrCode(new Participant());
-        $qrCodeJob->handle();
         return [
             'name' => $name,
             'age' => $this->faker->numberBetween(18, 60),
@@ -29,5 +26,19 @@ class ParticipantFactory extends Factory
             'address' => $this->faker->address(),
             'qr_code_filename' => "{$name}_qr.png",
         ];
+    }
+
+     /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Participant $participant) {
+            // Generate a QR code and store the filename
+            $qrCodeJob = new GenerateQrCode($participant);
+            $qrCodeJob->handle();
+        });
     }
 }

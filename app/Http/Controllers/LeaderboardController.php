@@ -6,6 +6,9 @@ use App\Jobs\GenerateQrCode;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
+
 
 class LeaderboardController extends Controller
 {
@@ -145,4 +148,23 @@ class LeaderboardController extends Controller
             return response()->json(['error' => 'Participant not found'], 404);
         }
     }
+
+    // public function showQrCode($filename)
+    // {
+    //     $filePath = "public/qrImage/{$filename}";
+
+    //     // Check if the file exists
+    //     if (Storage::exists($filePath)) {
+    //         $file = Storage::get($filePath);
+
+    //         // Return the image with appropriate headers
+    //         return Response::make($file, 200, [
+    //             'Content-Type' => 'image/png',
+    //             'Content-Disposition' => 'inline; filename="' . $filename . '"',
+    //         ]);
+    //     }
+
+    //     // Return a 404 response if the file is not found
+    //     return abort(404);
+    // }
 }
