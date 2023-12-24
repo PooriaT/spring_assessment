@@ -78,7 +78,8 @@ class LeaderboardController extends Controller
     {
         // $participant = $this->find($identifier);
         $participant = Participant::where('name', $identifier)
-            ->orWhere('id', $identifier);
+            ->orWhere('id', $identifier)
+            ->first();
 
         $participant->increment('points');
         return response()->json($participant);
@@ -94,7 +95,8 @@ class LeaderboardController extends Controller
     {
         // $participant = $this->find($identifier);
         $participant = Participant::where('name', $identifier)
-            ->orWhere('id', $identifier);
+            ->orWhere('id', $identifier)
+            ->first();
 
         $participant->decrement('points');
         return response()->json($participant);
