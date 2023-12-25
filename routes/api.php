@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\QrCodeController;
+use App\Http\Controllers\WinnerController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,5 +30,5 @@ Route::put('/leaderboard/participants/point/sub/{identifier}', [LeaderboardContr
 Route::post('/leaderboard/addparticipant', [LeaderboardController::class, 'addParticipant']);
 Route::delete('/leaderboard/deleteparticipant/{identifier}', [LeaderboardController::class, 'deleteParticipant']);
 
-// Route::get('/leaderboard/qr-code/{filename}', [LeaderboardController::class, 'showQrCode'])->name('qr-code.show');
-
+// Route::get('/leaderboard/qr-code/{filename}', [QrCodeController::class, 'showQrCode'])->name('qr-code.show');
+Route::get('/leaderboard/winner', [WinnerController::class, 'showWinner']);
