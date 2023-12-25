@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use App\Jobs\IdentifyWinners;
 use Illuminate\Console\Scheduling\Schedule;
 
 
@@ -68,9 +67,4 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
-
-    protected function schedule(Schedule $schedule): void
-    {
-        $schedule->job(IdentifyWinners::class)->everyFiveMinutes();
-    }
 }
