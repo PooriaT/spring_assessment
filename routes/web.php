@@ -2,9 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QrCodeController;
-use Illuminate\Support\Facades\Storage;
-
 
 
 /*
@@ -19,24 +16,9 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('leaderboard');
 });
-// Route::get('/leaderboard', [LeaderboardUIController::class, 'index']);
+
 Route::get('/leaderboard', function() {
     return view('leaderboard');
 });
-// Route::get('/leaderboard/qr-code/{filename}', [QrCodeController::class, 'showQrCode'])->name('qr-code.show');
-
-// Route::get('/leaderboard/qr-code', function () {
-//     $filePath = "public/qrImage/nathaniel-dubuque_qr.png";
-//     // Check if the file exists
-//     if (Storage::exists($filePath)) {
-//         // Specify the content type as an image
-//         $headers = ['Content-Type' => 'image/png'];
-
-//         // Return the file response
-//         return file(storage_path("app/{$filePath}"), $headers);
-//     }
-
-//     abort(404);
-// });
