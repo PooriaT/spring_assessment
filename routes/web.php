@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\QrCodeController;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -21,7 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Route::get('/leaderboard', [LeaderboardController::class, 'index']);
-// Route::get('/leaderboard/qr-code/{filename}', [LeaderboardController::class, 'showQrCode'])->name('qr-code.show');
+// Route::get('/leaderboard/qr-code/{filename}', [QrCodeController::class, 'showQrCode'])->name('qr-code.show');
 
 // Route::get('/leaderboard/qr-code', function () {
 //     $filePath = "public/qrImage/nathaniel-dubuque_qr.png";
