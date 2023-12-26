@@ -23,16 +23,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Copy composer files and install dependencies   --no-scripts --no-autoloader
 COPY composer.json composer.lock ./
-
+RUN composer install --no-scripts --no-autoloader
 
 # Copy the rest of the application code
 COPY . .
 
 # Copy the .env.example file and create the actual .env file
 COPY .env.example .env
-
-RUN composer dump-autoload
-RUN composer install --no-scripts --no-autoloader
 
 # Generate the application key
 RUN php artisan key:generate
