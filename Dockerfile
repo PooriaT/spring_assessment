@@ -6,12 +6,6 @@ WORKDIR /var/www/html
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    php-curl \
-    php-mbstring \
-    php-xml \
-    php-bcmath \
-    php-mysql \
-    php-zip \
     git \
     curl \
     libpng-dev \
