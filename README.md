@@ -13,7 +13,7 @@ It is a Back-End Developer assignment for Spring Financial based on Laravel. It 
 | X     [James]      +  -    17 points  |
 | X     [William]    +  -    6 points   |
 | X     [OLivia]     +  -    2 points   |
-| 	                  + Add participant |
+|                     + Add participant |
 |                             WINNER    |
 \----------------------------------------
 </pre>
