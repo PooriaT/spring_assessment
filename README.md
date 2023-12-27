@@ -126,7 +126,7 @@ crontab -e
 * * * * * php /<Project_Directory>/artisan schedule:run >> /dev/null 2>&1
 ```
 
-Now, we can start the development server with below command:
+Now, we can start the development server with the below command:
 
 ```bash
 php artisan serve
@@ -149,7 +149,7 @@ spring_assessment
 │   ├── Console
 │   │   ├── Commands
 │   │   │   └── ResetScores.php
-│   │   └── Kernel.php  -> To provide scheduling for winner job
+│   │   └── Kernel.php  -> To provide scheduling for the winner job
 │   └── HTTP
 │       ├── Controllers
 │       │   ├── Controller.php
@@ -288,7 +288,7 @@ All endpoints for this project are listed below, utilizing four HTTP methods."
 
 ##### 2. HTTP PUT
 
-The are two HTTP PUT methods available here, one for increment and the other for decrement of the point by one. The endpoints are `/api/leaderboard/participants/point/add/{identifier}` and `/api/leaderboard/participants/point/add/{identifier}`. It just requires replacing `isentifier` with the participant's name or id.
+The are two HTTP PUT methods available here, one for increment and the other for decrement of the point by one. The endpoints are `/api/leaderboard/participants/point/add/{identifier}` and `/api/leaderboard/participants/point/add/{identifier}`. It just requires replacing `identifier` with the participant's name or id.
 
 ##### 3. HTTP POST
 
