@@ -21,7 +21,6 @@ use App\Http\Controllers\WinnerController;
 //     return $request->user();
 // });
 
-// Route::get('/leaderboard', [LeaderboardController::class, 'index']);
 Route::get('/leaderboard/participants', [LeaderboardController::class, 'getParticipants']);
 Route::get('/leaderboard/participants/{identifier}', [LeaderboardController::class, 'getParticipant']);
 Route::get('/leaderboard/groupbyscore/{score?}', [LeaderboardController::class, 'getGroupedByScore']);
@@ -29,6 +28,4 @@ Route::put('/leaderboard/participants/point/add/{identifier}', [LeaderboardContr
 Route::put('/leaderboard/participants/point/sub/{identifier}', [LeaderboardController::class, 'subtractPoints']);
 Route::post('/leaderboard/addparticipant', [LeaderboardController::class, 'addParticipant']);
 Route::delete('/leaderboard/deleteparticipant/{identifier}', [LeaderboardController::class, 'deleteParticipant']);
-
-// Route::get('/leaderboard/qr-code/{filename}', [QrCodeController::class, 'showQrCode'])->name('qr-code.show');
 Route::get('/leaderboard/winner', [WinnerController::class, 'showWinner']);
