@@ -394,7 +394,7 @@ Next step is to copy the `spring_assessment` project into `/var/www/html` direct
 ```bash 
 cp -r spring_assessment/ /var/www/html/spring_assessment
 sudo chown -R www-data:www-data /var/www/html/spring_assessment
-$ sudo chmod -R 775 /var/www/html/spring_assessment/storage
+sudo chmod -R 775 /var/www/html/spring_assessment/storage
 ```
 Now, the project is live and it is possible to check it on the browser via the Internet. 
 
