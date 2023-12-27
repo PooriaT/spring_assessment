@@ -24,9 +24,9 @@ It is a Back-End Developer assignment for Spring Financial based on Laravel. It 
 
 - Write an API that would power the leaderboard Screen above (REST/GraphQL or)
 - All users start with 0 points.
-- As you click +/-, the leaderboard updates and users are re-ordered based on score
+- As you click +/-, the leaderboard updates, and users are re-ordered based on score
 - You are able to add users (+) and delete users (x)
-- When the name is clicked on, UI would show details of this user.
+- When the name is clicked on, UI will show details of this user.
 	- Name
 	- Age
 	- Points
@@ -34,7 +34,7 @@ It is a Back-End Developer assignment for Spring Financial based on Laravel. It 
 	- QR Image
 - Create a model factory to fill the db with initial users with random values.
 - Create a Laravel command to reset all scores.
-- Create an endpoint that returns the users info grouped by score and include the
+- Create an endpoint that returns the users' info grouped by score and includes the
 
 average age of the users in JSON format.
 
@@ -52,21 +52,21 @@ average age of the users in JSON format.
 }
 ```
 - Using queues/jobs generate a QR code that stores the user address after user creation. Store that QR image locally. You may use (https://goqr.me/api/) 
-- Create a scheduled job that identifies the user with the highest points at a given moment and stores a new record in a winners table. This table must maintain a relationship with the original users table and store the timestamp when the user was declared a winner and their corresponding points at that time. The job should run every 5 minutes. In cases where there's a tie for the highest points, no winner should be declared, and no record should be created in the winners table.
+- Create a scheduled job that identifies the user with the highest points at a given moment and stores a new record in a winners' table. This table must maintain a relationship with the original participants' table and store the timestamp when the user was declared a winner and their corresponding points at that time. The job should run every 5 minutes. In cases where there's a tie for the highest points, no winner should be declared, and no record should be created in the winners' table.
 
 ##### Assignment Guideline
 
 - Including a readme file with instructions on how to run the application.
-- Using Laravel as framework.
-- Providing Unit test for areas you see fit.
+- Using Laravel as the framework.
+- Providing Unit tests for areas you see fit.
 - Brief documentation on the endpoints
-- Providing repository link, and link to the API (if you are able to host)
+- Providing repository link, and link to the API (if you can host)
 
 ------
 
 ### Prerequisite
 
-- PHP 8.1.2 (and its requirements). The required packages are as follows (for Debian based OS):
+- PHP 8.1.2 (and its requirements). The required packages are as follows (for Debian-based OS):
 
 ```bash
 sudo apt install php php-curl php-mbstring php-xml php-bcmath php-mysql php-zip
@@ -87,7 +87,7 @@ sudo mv composer.phar /usr/local/bin/composer #Installation Globally
 
 ### Installation
 
-After successfully installing Laravel project, we need to change the directory to the project folder.
+After successfully installing the Laravel project, we need to change the directory to the project folder.
 
 To install all required dependencies, the below command has to be executed:
 
@@ -101,10 +101,10 @@ cp .env.example .env
 php artisan key:generate # Generating the new project key
 
 php artisan migrate # If the migration had not been done before
-# If you need to redo the migration forcefull, you can use:
+# If you need to redo the migration forcefully, you can use:
 php artisan migrate:fresh # Warning: your previous data is removed with this command
 
-php artisan storage:link # Linking the storage directory to public in case of making it accessible for the users
+php artisan storage:link # Linking the storage directory to the public in case to make it accessible for the users
 ```
 
 If you want to generate dummy content and inject it into the database, you can use the following command, leveraging the provided participants' factory:
@@ -185,7 +185,7 @@ spring_assessment
 ├── storage
 │   └── app
 │       └── public
-│           └── qrImages -> All QR Code images are stored in this direcotry and linked to public
+│           └── qrImages -> All QR Code images are stored in this directory and linked to public
 ├── tests
 │   └── Feature
 │       └── LeaderboardTest.php
@@ -198,7 +198,7 @@ spring_assessment
 
 #### Implementing Front End
 
-A view of the project has been provided in `resources/view/leaderboard.blade.php` and the required static files including `.css` and `.js` are in public directory.
+A view of the project has been provided in `resources/view/leaderboard.blade.php` and the required static files including `.css` and `.js` are in the public directory.
 
 #### Docker
 
@@ -261,7 +261,7 @@ All endpoints for this project are listed below, utilizing four HTTP methods."
 	},
 ]
 ```
-- Extracting the data related to participants' group based on the score. If `score` is left empty, it will return all the group. Otherwise, it only provides the information of a group which belongs to that specific core. The endpoint is `/api/leaderboard/groupbyscore/{score?}`. For instance, the output for `/api/leaderboard/groupbyscore/11` is as below:
+- Extracting the data related to the participants' group based on the score. If `score` is left empty, it will return all the group. Otherwise, it only provides the information of a group that belongs to that specific core. The endpoint is `/api/leaderboard/groupbyscore/{score?}`. For instance, the output for `/api/leaderboard/groupbyscore/11` is as below:
 
 ```json
 {
@@ -272,7 +272,7 @@ All endpoints for this project are listed below, utilizing four HTTP methods."
 	}
 }
 ```
-- Based on the provided schedule for winner job, the winner table is updated every five minutes if the score changes or not tie happens. To retrieve the related information, the endpoint of `/api/leaderboard/winner` can be used:
+- Based on the provided schedule for the winner job, the winner table is updated every five minutes if the score changes or no tie happens. To retrieve the related information, the endpoint of `/api/leaderboard/winner` can be used:
 ```json
 {
 	"winner": {
@@ -288,11 +288,11 @@ All endpoints for this project are listed below, utilizing four HTTP methods."
 
 ##### 2. HTTP PUT
 
-The are two HTTP PUT methods available here, one for increment and the other for decrement the point by one. The endpoints are `/api/leaderboard/participants/point/add/{identifier}` and `/api/leaderboard/participants/point/add/{identifier}`. Just, it requires to replace `isentifier` with participant's name or id.
+The are two HTTP PUT methods available here, one for increment and the other for decrement of the point by one. The endpoints are `/api/leaderboard/participants/point/add/{identifier}` and `/api/leaderboard/participants/point/add/{identifier}`. It just requires replacing `isentifier` with the participant's name or id.
 
 ##### 3. HTTP POST
 
-To add the new participant's record, a HTTP POST method is required. The related endpoint is `/api/leaderboard/addparticipant`. It needs to provide the request alongside the method. For example, we can have something like this `/api/leaderboard/addparticipant?name=John Doe&age=28&address=Richards St, Vancouver, BC`. Then, the output is as follows:
+To add the new participant's record, an HTTP POST method is required. The related endpoint is `/api/leaderboard/addparticipant`. It needs to provide the request alongside the method. For example, we can have something like this `/api/leaderboard/addparticipant?name=John Doe&age=28&address=Richards St, Vancouver, BC`. Then, the output is as follows:
 
 ```json
 {
@@ -331,7 +331,7 @@ or
 
 ##### 4. HTTP DELETE
 
-To deleted a record form `participants` table, it just needs to use the HTTP DELETE method. The related endpoint is `/api/leaderboard/deleteparticipant/{identifier}`. The `identifier` requires to be replaced by participant's name or id. If method result will be:
+To delete a record from `participants` table, it just needs to use the HTTP DELETE method. The related endpoint is `/api/leaderboard/deleteparticipant/{identifier}`. The `identifier` is required to be replaced by the participant's name or id. If the method result is:
 
 ```json
 {
@@ -341,7 +341,7 @@ To deleted a record form `participants` table, it just needs to use the HTTP DEL
 
 ### Tests
 
-For this project, some features tests have been provided. To test it, just run the below command:
+For this project, some feature tests have been provided. To test it, just run the below command:
 
 ```bash
 php artisan test
@@ -363,7 +363,7 @@ git clone https://github.com/PooriaT/spring_assessment
 ```
 ##### Apache Configuration
 
-Now, we need to provide `spring_assessment.conf` for the apache configuration as follows:
+Now, we need to provide `spring_assessment.conf` for the Apache configuration as follows:
 
 ```bash
 sudo nano /etc/apache2/sites-available/spring_assessment.conf
@@ -381,7 +381,7 @@ and add the below configuration in the editor
 </VirtualHost>
 ```
 
-Then, Apache module needs to be rewritten and the configuration is restart.
+Then, the Apache module needs to be rewritten and the configuration is restarted.
 
 ```bash
 sudo a2enmod rewrite
@@ -389,7 +389,7 @@ sudo a2ensite spring_assessment.conf
 sudo systemctl restart apache2
 ```
 
-Next step is to copy the `spring_assessment` project into `/var/www/html` directory and then providing the required permissions. 
+The next step is to copy the `spring_assessment` project into `/var/www/html` directory and then provide the required permissions. 
 
 ```bash 
 cp -r spring_assessment/ /var/www/html/spring_assessment
