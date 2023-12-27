@@ -305,7 +305,7 @@ To add the new participant's record, an HTTP POST method is required. The relate
 }
 ```
 
-Here, the full name has to be unique, if the name id is duplicated or the age is below 18, it will return an error like below:
+Here, the full name has to be unique, if the name is duplicated or the age is below 18, it will return an error like below:
 
 ```json
 {
