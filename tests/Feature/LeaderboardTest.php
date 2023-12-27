@@ -11,90 +11,119 @@ class LeaderboardTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    /**
+     * Test the "addParticipant" function of the API.
+     *
+     * This function tests the functionality of adding a participant to the leaderboard.
+     *
+     * @throws Exception If the API endpoint is not reachable.
+     * @return void
+    */
+    public function testAddParticipant()
+    {
+        $response = $this->post('/api/leaderboard/addparticipant', [
+            'name' => 'John Doe Test Name',
+            'age' => 25,
+            'points' => 10,
+            'address' => '123 Main St',
+        ]);
+        $response->assertStatus(201)->assertJson(['name' => 'John Doe Test Name']);
+    }
+
+    /**
+     * This function tests the GET request for the 'Participants' API.
+     *
+     * @return void
+    */
     public function testGetParticipants()
     {
-        // Arrange
-        // Participant::factory()->count(5)->create();
-
-        // Act
         $response = $this->get('/api/leaderboard/participants');
-
-        // Assert
-        // $response->assertStatus(200)->assertJsonCount(5, 'participants');
         $response->assertStatus(200);
     }
 
-    // public function testGetParticipant()
-    // {
-    //     // Arrange
-    //     // $participant = Participant::factory()->create();
+    /**
+     * This function tests the GET request for the 'Participants' API for a specific participant.
+     *
+     * @return void
+    */
+    public function testGetParticipant()
+    {
+        $post_response = $this->post('/api/leaderboard/addparticipant', [
+            'name' => 'John Doe Test Name',
+            'age' => 25,
+            'points' => 10,
+            'address' => '123 Main St',
+        ]);
+        $response = $this->get("/api/leaderboard/participants/John Doe Test Name");
 
-    //     // Act
-    //     // $response = $this->get("/api/leaderboard/participants/{$participant->id}");
-    //     $response = $this->get("/api/leaderboard/participants/{$id}");
-    //     // Assert
-    //     $response->assertStatus(200);
-    // }
+        $response->assertStatus(200)->assertJson([
+            'name' => 'John Doe Test Name',
+            'age' => 25,
+            'points' => 10,
+            'address' => '123 Main St',
+        ]);
+    }
 
+    /**
+     * Test the GET request for the "GroupedByScore" function of the API.
+     *
+     * @throws Exception if the response status is not 200
+    */
     public function testGetGroupedByScore()
     {
-        // Act
         $response = $this->get('/api/leaderboard/groupbyscore');
-
-        // Assert
         $response->assertStatus(200);
     }
 
+    /**
+     * Test the functionality of adding points to the leaderboard for a participant.
+     *
+     * @return void
+    */
     public function testAddPoints()
     {
-        // Arrange
-        $participant = Participant::factory()->create(['points' => 10]);
-
-        // Act
-        $response = $this->put("/api/leaderboard/participants/point/add/{$participant->id}");
-
-        // Assert
+        $post_response = $this->post('/api/leaderboard/addparticipant', [
+            'name' => 'John Doe Test Name',
+            'age' => 25,
+            'points' => 10,
+            'address' => '123 Main St',
+        ]);
+        $response = $this->put("/api/leaderboard/participants/point/add/John Doe Test Name");
         $response->assertStatus(200)->assertJson(['points' => 11]);
     }
 
+    /**
+     * Test subtracting points from a participant's leaderboard score.
+     *
+     * @return void
+    */
     public function testSubtractPoints()
     {
-        // Arrange
-        $participant = Participant::factory()->create(['points' => 10]);
-
-        // Act
-        $response = $this->put("/api/leaderboard/participants/point/sub/{$participant->id}");
-
-        // Assert
+        $post_response = $this->post('/api/leaderboard/addparticipant', [
+            'name' => 'John Doe Test Name',
+            'age' => 25,
+            'points' => 10,
+            'address' => '123 Main St',
+        ]);
+        $response = $this->put("/api/leaderboard/participants/point/sub/John Doe Test Name");
         $response->assertStatus(200)->assertJson(['points' => 9]);
     }
 
-    public function testAddParticipant()
+    /**
+     * Test the deleteParticipant function.
+     *
+     * @return void
+    */
+    public function testDeleteParticipant()
     {
-        // Act
-        $response = $this->post('/api/leaderboard/addparticipant', [
-            'name' => 'John Doe',
+        $post_response = $this->post('/api/leaderboard/addparticipant', [
+            'name' => 'John Doe Test Name',
             'age' => 25,
-            'points' => 15,
+            'points' => 10,
             'address' => '123 Main St',
         ]);
-
-        // Assert
-        $response->assertStatus(201)->assertJson(['name' => 'John Doe']);
+        $response = $this->delete("/api/leaderboard/deleteparticipant/John Doe Test Name");
+        $response->assertStatus(200);
+        $this->assertDatabaseMissing('participants', ['name' => 'John Doe Test Name']);
     }
-
-    // public function testDeleteParticipant()
-    // {
-    //     // Arrange
-    //     // $participant = Participant::factory()->create();
-    //     $id = 3;
-
-    //     // Act
-    //     // $response = $this->delete("/api/leaderboard/deleteparticipant/{$participant->id}");
-    //     $response = $this->delete("/api/leaderboard/deleteparticipant/{$id}");
-    //     // Assert
-    //     $response->assertStatus(204);
-    //     // $this->assertDatabaseMissing('participants', ['id' => $participant->id]);
-    //     $this->assertDatabaseMissing('participants', ['id' => $id]);
-    // }
 }
